@@ -85,7 +85,7 @@ const Generator: React.FC<GeneratorProps> = ({ onImageGenerated, gallery, onSele
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 h-full">
+    <div className="flex flex-col lg:flex-row gap-8 min-h-full">
       {/* Sidebar Gallery */}
       <div className="flex lg:flex-col w-full lg:w-48 shrink-0 bg-zinc-900/30 backdrop-blur-md rounded-3xl border border-zinc-800/60 p-4 overflow-x-auto lg:overflow-y-auto no-scrollbar studio-glass shadow-2xl">
         <h3 className="hidden lg:flex text-[10px] font-black text-zinc-500 mb-6 items-center gap-2 uppercase tracking-widest pl-1"><History size={14}/> Recent Designs</h3>

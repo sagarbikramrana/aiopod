@@ -21,13 +21,13 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     super(props);
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState { 
-    return { hasError: true, error }; 
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
   }
 
   // Lifecycle method to handle error reporting
-  componentDidCatch(error: Error, info: ErrorInfo) { 
-    console.error("Uncaught Error:", error, info); 
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("Uncaught Error:", error, info);
   }
 
   render(): ReactNode {
@@ -59,24 +59,24 @@ const App = () => {
 
   React.useEffect(() => {
     const saved = localStorage.getItem('pod_gallery_v2');
-    if (saved) { 
-      try { const parsed = JSON.parse(saved); setGallery(Array.isArray(parsed) ? parsed : []); } 
-      catch (e) { localStorage.removeItem('pod_gallery_v2'); } 
+    if (saved) {
+      try { const parsed = JSON.parse(saved); setGallery(Array.isArray(parsed) ? parsed : []); }
+      catch (e) { localStorage.removeItem('pod_gallery_v2'); }
     }
   }, []);
 
   React.useEffect(() => {
     if (gallery.length > 0) {
-      try { localStorage.setItem('pod_gallery_v2', JSON.stringify(gallery)); } 
-      catch (e) { try { localStorage.setItem('pod_gallery_v2', JSON.stringify(gallery.slice(0, 3))); } catch (e2) {} }
+      try { localStorage.setItem('pod_gallery_v2', JSON.stringify(gallery)); }
+      catch (e) { try { localStorage.setItem('pod_gallery_v2', JSON.stringify(gallery.slice(0, 3))); } catch (e2) { } }
     }
   }, [gallery]);
 
   const handleStartOver = () => {
     if (window.confirm("Start over from scratch? All current progress and unsaved edits will be lost.")) {
-      setWorkingBaseImage(null); 
+      setWorkingBaseImage(null);
       setProcessedImage(null);
-      setEditorState(getInitialEditorState()); 
+      setEditorState(getInitialEditorState());
       setCurrentStep(AppStep.GENERATE);
     }
   };
@@ -94,25 +94,25 @@ const App = () => {
               <span className="text-[8px] font-black text-zinc-500 tracking-[0.2em] uppercase">Premium Tier</span>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
             {currentStep !== AppStep.GENERATE && (
-              <button 
-                onClick={handleStartOver} 
+              <button
+                onClick={handleStartOver}
                 className="px-4 py-2 rounded-xl text-[10px] font-black text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all flex items-center gap-2 uppercase tracking-widest"
               >
                 <RefreshCw size={12} /> Start Over
               </button>
             )}
             <div className="relative">
-              <button onClick={() => setShowAdminLogin(!showAdminLogin)} className="px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-black text-zinc-500 hover:text-white hover:border-zinc-600 transition-all uppercase tracking-widest"><ShieldCheck size={12} className="inline mr-1"/> Config</button>
+              <button onClick={() => setShowAdminLogin(!showAdminLogin)} className="px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-black text-zinc-500 hover:text-white hover:border-zinc-600 transition-all uppercase tracking-widest"><ShieldCheck size={12} className="inline mr-1" /> Config</button>
               {showAdminLogin && (
                 <div className="absolute top-full right-0 mt-3 w-56 studio-glass border border-zinc-700/50 rounded-2xl p-4 z-[70] shadow-2xl animate-fade-in">
-                    <form onSubmit={e => { e.preventDefault(); if (adminPin === '1234') { setCurrentStep(AppStep.ADMIN); setShowAdminLogin(false); setAdminPin(''); } else alert("Access Denied."); }}>
-                      <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-2 px-1">Security PIN</p>
-                      <input type="password" autoFocus className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-center text-sm mb-3 focus:border-indigo-500 outline-none transition-all" value={adminPin} onChange={e => setAdminPin(e.target.value)} maxLength={4} placeholder="••••"/>
-                      <button type="submit" className="w-full py-3 bg-white text-black rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-zinc-200 transition-all active:scale-95">Authenticate</button>
-                    </form>
+                  <form onSubmit={e => { e.preventDefault(); if (adminPin === '1234') { setCurrentStep(AppStep.ADMIN); setShowAdminLogin(false); setAdminPin(''); } else alert("Access Denied."); }}>
+                    <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-2 px-1">Security PIN</p>
+                    <input type="password" autoFocus className="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-center text-sm mb-3 focus:border-indigo-500 outline-none transition-all" value={adminPin} onChange={e => setAdminPin(e.target.value)} maxLength={4} placeholder="••••" />
+                    <button type="submit" className="w-full py-3 bg-white text-black rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-zinc-200 transition-all active:scale-95">Authenticate</button>
+                  </form>
                 </div>
               )}
             </div>
@@ -122,31 +122,31 @@ const App = () => {
         <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-zinc-950 to-black flex flex-col">
           <div className="flex-1 w-full max-w-[1800px] mx-auto overflow-hidden">
             {currentStep === AppStep.GENERATE && (
-              <div className="h-full overflow-y-auto no-scrollbar p-4 sm:p-6 lg:p-10 animate-fade-in">
-                <Generator 
-                  onImageGenerated={(url, m, pr) => { 
-                    setGallery(p => [{ url, mode: m, prompt: pr }, ...p].slice(0, 15)); 
-                    setWorkingBaseImage(url); 
-                    setEditorState({ ...getInitialEditorState(), isPattern: m === 'pattern', isSticker: m === 'sticker' }); 
-                    setCurrentStep(AppStep.EDIT); 
-                  }} 
-                  gallery={gallery} 
-                  onSelectFromGallery={(item) => { 
-                    setWorkingBaseImage(item.url); 
-                    setEditorState({ ...getInitialEditorState(), isPattern: item.mode === 'pattern', isSticker: item.mode === 'sticker' }); 
-                    setCurrentStep(AppStep.EDIT); 
-                  }} 
+              <div className="min-h-full overflow-y-auto no-scrollbar p-4 sm:p-6 lg:p-10 animate-fade-in">
+                <Generator
+                  onImageGenerated={(url, m, pr) => {
+                    setGallery(p => [{ url, mode: m, prompt: pr }, ...p].slice(0, 15));
+                    setWorkingBaseImage(url);
+                    setEditorState({ ...getInitialEditorState(), isPattern: m === 'pattern', isSticker: m === 'sticker' });
+                    setCurrentStep(AppStep.EDIT);
+                  }}
+                  gallery={gallery}
+                  onSelectFromGallery={(item) => {
+                    setWorkingBaseImage(item.url);
+                    setEditorState({ ...getInitialEditorState(), isPattern: item.mode === 'pattern', isSticker: item.mode === 'sticker' });
+                    setCurrentStep(AppStep.EDIT);
+                  }}
                 />
               </div>
             )}
             {currentStep === AppStep.EDIT && workingBaseImage && (
-              <Editor 
-                imageUrl={workingBaseImage} 
+              <Editor
+                imageUrl={workingBaseImage}
                 setImageUrl={setWorkingBaseImage}
-                state={editorState} 
-                setState={setEditorState} 
-                onComplete={(url) => { setProcessedImage(url); setCurrentStep(AppStep.MOCKUP); }} 
-                onBack={() => setCurrentStep(AppStep.GENERATE)} 
+                state={editorState}
+                setState={setEditorState}
+                onComplete={(url) => { setProcessedImage(url); setCurrentStep(AppStep.MOCKUP); }}
+                onBack={() => setCurrentStep(AppStep.GENERATE)}
               />
             )}
             {currentStep === AppStep.MOCKUP && processedImage && (

@@ -63,14 +63,14 @@ const MockupStudio: React.FC<MockupStudioProps> = ({ designUrl, onBack }) => {
       canvas.width = mockupImg.width; canvas.height = mockupImg.height;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(mockupImg, 0, 0);
-      
+
       ctx.save();
       const w = (canvas.width * scale) / 100;
       const h = (designImg.height * (w / designImg.width));
       ctx.translate((canvas.width * posX) / 100, (canvas.height * posY) / 100);
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.globalAlpha = opacity / 100;
-      
+
       const compositeMap: Record<BlendMode, GlobalCompositeOperation> = {
         'normal': 'source-over', 'multiply': 'multiply', 'screen': 'screen', 'overlay': 'overlay'
       };
@@ -91,13 +91,13 @@ const MockupStudio: React.FC<MockupStudioProps> = ({ designUrl, onBack }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-full gap-6 animate-fade-in relative overflow-hidden">
+    <div className="flex flex-col lg:flex-row min-h-full gap-6 animate-fade-in relative overflow-hidden">
       <div className="flex-1 bg-zinc-950/20 border border-zinc-800 rounded-2xl flex items-center justify-center p-4 sm:p-12 relative overflow-hidden min-h-[50vh]">
         <div className="relative shadow-2xl rounded-lg overflow-hidden max-h-full">
           {mockupImage && <img src={mockupImage} className="max-w-full max-h-[70vh] object-contain block animate-fade-in" />}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute" style={{ 
-              top: `${posY}%`, left: `${posX}%`, width: `${scale}%`, 
+            <div className="absolute" style={{
+              top: `${posY}%`, left: `${posX}%`, width: `${scale}%`,
               transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
               opacity: opacity / 100, mixBlendMode: blendMode as any
             }}>
@@ -109,13 +109,13 @@ const MockupStudio: React.FC<MockupStudioProps> = ({ designUrl, onBack }) => {
 
       <div className="w-full lg:w-96 bg-zinc-900 p-6 border-l border-zinc-800 flex flex-col gap-6 overflow-y-auto no-scrollbar">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold flex items-center gap-2"><Shirt className="text-indigo-400" size={20}/> Mockup Engine</h3>
+          <h3 className="text-xl font-bold flex items-center gap-2"><Shirt className="text-indigo-400" size={20} /> Mockup Engine</h3>
           <button onClick={() => fileInputRef.current?.click()} className="p-2 bg-indigo-600/20 text-indigo-400 rounded-lg hover:bg-indigo-600/30 transition-all">
-            <Upload size={18}/>
+            <Upload size={18} />
           </button>
           <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileUpload} />
         </div>
-        
+
         <div className="flex gap-1 bg-zinc-950 p-1 rounded-xl border border-zinc-800">
           {['apparel', 'home', 'accessories', 'custom'].map(cat => (
             <button key={cat} onClick={() => setActiveCategory(cat)} className={`flex-1 py-2 rounded-lg text-[10px] font-bold capitalize transition-all ${activeCategory === cat ? 'bg-zinc-800 text-white shadow-inner' : 'text-zinc-500 hover:text-zinc-300'}`}>
@@ -128,14 +128,14 @@ const MockupStudio: React.FC<MockupStudioProps> = ({ designUrl, onBack }) => {
           {(mockups[activeCategory] || []).map((url: string, i: number) => (
             <button key={i} onClick={() => setMockupImage(url)} className={`shrink-0 w-16 h-16 rounded-xl border-2 transition-all relative overflow-hidden ${mockupImage === url ? 'border-indigo-500 shadow-lg' : 'border-zinc-800 opacity-60 hover:opacity-100'}`}>
               <img src={url} className="w-full h-full object-cover" />
-              {mockupImage === url && <div className="absolute top-1 right-1 p-0.5 bg-indigo-500 rounded-full text-white shadow-sm"><CheckCircle2 size={10}/></div>}
+              {mockupImage === url && <div className="absolute top-1 right-1 p-0.5 bg-indigo-500 rounded-full text-white shadow-sm"><CheckCircle2 size={10} /></div>}
             </button>
           ))}
         </div>
 
         <div className="space-y-6 bg-zinc-950 p-4 rounded-xl border border-zinc-800 shadow-inner">
           <div className="space-y-2">
-            <label className="text-[10px] font-bold text-zinc-500 uppercase flex items-center gap-2"><Layers size={12}/> Appearance</label>
+            <label className="text-[10px] font-bold text-zinc-500 uppercase flex items-center gap-2"><Layers size={12} /> Appearance</label>
             <div className="grid grid-cols-2 gap-2">
               {(['normal', 'multiply', 'screen', 'overlay'] as BlendMode[]).map(mode => (
                 <button key={mode} onClick={() => setBlendMode(mode)} className={`py-2 px-1 rounded-lg text-[10px] font-bold border transition-all capitalize ${blendMode === mode ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-zinc-300'}`}>
@@ -151,29 +151,29 @@ const MockupStudio: React.FC<MockupStudioProps> = ({ designUrl, onBack }) => {
                 <label className="text-[10px] font-bold text-zinc-600 uppercase">Design Scale</label>
                 <span className="text-[10px] font-mono text-indigo-400">{scale}%</span>
               </div>
-              <input type="range" min="5" max="95" value={scale} onChange={e => setScale(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg"/>
+              <input type="range" min="5" max="95" value={scale} onChange={e => setScale(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg" />
             </div>
 
             <div className="space-y-1">
               <div className="flex justify-between items-center mb-1">
-                <label className="text-[10px] font-bold text-zinc-600 uppercase flex items-center gap-1"><RotateCw size={10}/> Rotation</label>
+                <label className="text-[10px] font-bold text-zinc-600 uppercase flex items-center gap-1"><RotateCw size={10} /> Rotation</label>
                 <span className="text-[10px] font-mono text-indigo-400">{rotation}°</span>
               </div>
-              <input type="range" min="-180" max="180" value={rotation} onChange={e => setRotation(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg"/>
+              <input type="range" min="-180" max="180" value={rotation} onChange={e => setRotation(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-               <div className="space-y-1"><label className="text-[10px] font-bold text-zinc-600 uppercase">X Position</label><input type="range" min="0" max="100" value={posX} onChange={e => setPosX(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg"/></div>
-               <div className="space-y-1"><label className="text-[10px] font-bold text-zinc-600 uppercase">Y Position</label><input type="range" min="0" max="100" value={posY} onChange={e => setPosY(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg"/></div>
+              <div className="space-y-1"><label className="text-[10px] font-bold text-zinc-600 uppercase">X Position</label><input type="range" min="0" max="100" value={posX} onChange={e => setPosX(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg" /></div>
+              <div className="space-y-1"><label className="text-[10px] font-bold text-zinc-600 uppercase">Y Position</label><input type="range" min="0" max="100" value={posY} onChange={e => setPosY(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-800 accent-indigo-500 rounded-lg" /></div>
             </div>
           </div>
         </div>
 
         <div className="mt-auto pt-4 space-y-3 safe-bottom">
-           <button onClick={handleExport} disabled={isExporting} className="w-full py-4 bg-white text-black rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 shadow-2xl hover:bg-zinc-100 active:scale-95 transition-all">
-             {isExporting ? <Loader2 className="animate-spin" size={18}/> : <Download size={18}/>} Export HQ Mockup
-           </button>
-           <button onClick={onBack} className="w-full py-2 text-xs font-bold text-zinc-500 hover:text-white flex items-center justify-center gap-2 transition-colors uppercase"><ArrowLeft size={14}/> Back to Editor</button>
+          <button onClick={handleExport} disabled={isExporting} className="w-full py-4 bg-white text-black rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 shadow-2xl hover:bg-zinc-100 active:scale-95 transition-all">
+            {isExporting ? <Loader2 className="animate-spin" size={18} /> : <Download size={18} />} Export HQ Mockup
+          </button>
+          <button onClick={onBack} className="w-full py-2 text-xs font-bold text-zinc-500 hover:text-white flex items-center justify-center gap-2 transition-colors uppercase"><ArrowLeft size={14} /> Back to Editor</button>
         </div>
       </div>
     </div>

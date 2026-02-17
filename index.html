@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>POD AI Studio | Premium Design Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;700&family=Pacifico&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --sat: env(safe-area-inset-top);
+        --sab: env(safe-area-inset-bottom);
+      }
+      
+      html, body { 
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #09090b; 
+        color: #f4f4f5;
+        overflow: hidden;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body { 
+        -webkit-tap-highlight-color: transparent; 
+        height: 100dvh;
+      }
+      
+      /* Professional Custom Scrollbar */
+      ::-webkit-scrollbar { width: 4px; height: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { 
+        background: #27272a; 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+      /* Premium Range Inputs */
+      input[type="range"] {
+        -webkit-appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+      input[type="range"]::-webkit-slider-runnable-track {
+        background: #18181b;
+        height: 4px;
+        border-radius: 2px;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 14px;
+        width: 14px;
+        background: #ffffff;
+        border-radius: 50%;
+        margin-top: -5px;
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+        border: 2px solid #6366f1;
+        transition: all 0.2s ease;
+      }
+
+      .safe-bottom { padding-bottom: var(--sab); }
+      .safe-top { padding-top: var(--sat); }
+      
+      .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+      
+      .studio-glass {
+        background: rgba(9, 9, 11, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+    </style>
+
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

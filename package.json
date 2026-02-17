@@ -1,0 +1,22 @@
+{
+  "name": "pod-ai-studio",
+  "version": "2.4.0",
+  "private": true,
+  "description": "Premium POD AI Design Suite",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^1.33.0",
+    "lucide-react": "^0.561.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^5.4.15",
+    "@vitejs/plugin-react": "^4.3.4"
+  }
+}

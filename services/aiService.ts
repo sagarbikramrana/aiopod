@@ -171,9 +171,9 @@ export const generateDesignWithFallback = async (
 ): Promise<GenerationResult> => {
 
   const providers: { id: AIModel; name: string; fn: () => Promise<string> }[] = [
-    { id: 'gemini', name: 'Gemini Standard (Free)', fn: () => generateGemini(prompt, style, bgColor, refImageBase64, mode, aspectRatio, 'gemini-2.5-flash-preview-image') },
-    { id: 'nano-banana', name: 'Banana Flash (Fast)', fn: () => generateGemini(prompt, style, bgColor, refImageBase64, mode, aspectRatio, 'gemini-2.5-flash-preview-image') },
-    { id: 'nano-banana-pro', name: 'Banana Pro (HD)', fn: () => generateGemini(prompt, style, bgColor, refImageBase64, mode, aspectRatio, 'gemini-3-pro-image') },
+    { id: 'gemini', name: 'Gemini Standard (Free)', fn: () => generateGemini(prompt, style, bgColor, refImageBase64, mode, aspectRatio, 'gemini-2.5-flash-image') },
+    { id: 'nano-banana', name: 'Banana Flash (Fast)', fn: () => generateGemini(prompt, style, bgColor, refImageBase64, mode, aspectRatio, 'gemini-2.5-flash-image') },
+    { id: 'nano-banana-pro', name: 'Banana Pro (HD)', fn: () => generateGemini(prompt, style, bgColor, refImageBase64, mode, aspectRatio, 'gemini-3-pro-image-preview') },
     { id: 'flux', name: 'Flux Pro', fn: () => generatePollinations(prompt, style, bgColor, 'flux', mode, aspectRatio) },
     { id: 'dalle', name: 'DALL-E 3', fn: () => generateDalle(prompt, style, bgColor, mode, aspectRatio) },
     { id: 'sdxl', name: 'SDXL Vector', fn: () => generatePollinations(prompt, style, bgColor, 'sdxl', mode, aspectRatio) },

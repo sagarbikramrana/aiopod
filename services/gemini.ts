@@ -11,15 +11,15 @@ const createClient = () => {
 };
 
 export const enhancePrompt = async (
-  simplePrompt: string, 
-  styles: string[], 
+  simplePrompt: string,
+  styles: string[],
   bgColor: string = "PURE WHITE",
   aspectRatio: string = "1:1"
 ): Promise<string> => {
   return withRetry(async () => {
     const ai = createClient();
-    
-    const styleContext = styles.length === 0 
+
+    const styleContext = styles.length === 0
       ? "Professional high-end graphic design."
       : `Integration of: ${styles.join(', ')}.`;
 
@@ -37,9 +37,9 @@ export const enhancePrompt = async (
     
     TASK: Write a 40-word technical prompt for a professional generation engine. No generic artistic fluff.`;
 
-    const response = await ai.models.generateContent({ 
-      model: 'gemini-3-flash-preview', 
-      contents: prompt 
+    const response = await ai.models.generateContent({
+      model: 'gemini-1.5-flash-latest',
+      contents: prompt
     });
     return response.text?.trim() || simplePrompt;
   });
@@ -50,7 +50,7 @@ export const removeBackgroundAI = async (imageBase64: string): Promise<string> =
     const ai = createClient();
     const base64Data = imageBase64.includes(',') ? imageBase64.split(',')[1] : imageBase64;
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
+      model: 'gemini-1.5-flash-latest',
       contents: {
         parts: [
           { inlineData: { data: base64Data, mimeType: 'image/png' } },

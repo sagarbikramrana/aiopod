@@ -122,7 +122,7 @@ const App = () => {
         <main className="flex-1 relative bg-gradient-to-b from-zinc-950 to-black flex flex-col">
           <div className="flex-1 w-full max-w-[1800px] mx-auto">
             {currentStep === AppStep.GENERATE && (
-              <div className="min-h-full overflow-y-auto no-scrollbar p-4 sm:p-6 lg:p-10 animate-fade-in">
+              <div className="min-h-full p-4 sm:p-6 lg:p-10 animate-fade-in">
                 <Generator
                   onImageGenerated={(url, m, pr) => {
                     setGallery(p => [{ url, mode: m, prompt: pr }, ...p].slice(0, 15));

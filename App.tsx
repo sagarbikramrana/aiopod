@@ -85,7 +85,7 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col h-full bg-[#09090b] text-zinc-100 selection:bg-indigo-500/40 safe-top">
+      <div className="flex flex-col min-h-screen bg-[#09090b] text-zinc-100 selection:bg-indigo-500/40 safe-top">
         <header className="h-14 border-b border-zinc-800/60 studio-glass flex items-center justify-between px-6 lg:px-10 z-[60] shrink-0">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setCurrentStep(AppStep.GENERATE)}>
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform"><Shirt size={18} className="text-white" /></div>
@@ -119,8 +119,8 @@ const App = () => {
           </div>
         </header>
 
-        <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-zinc-950 to-black flex flex-col">
-          <div className="flex-1 w-full max-w-[1800px] mx-auto overflow-hidden">
+        <main className="flex-1 relative bg-gradient-to-b from-zinc-950 to-black flex flex-col">
+          <div className="flex-1 w-full max-w-[1800px] mx-auto">
             {currentStep === AppStep.GENERATE && (
               <div className="min-h-full overflow-y-auto no-scrollbar p-4 sm:p-6 lg:p-10 animate-fade-in">
                 <Generator
